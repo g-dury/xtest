@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: xtest
-        image: gdury/xtest:master-8344e8
+        image: gdury/ximage:1594042167-master-4be416c
         env:
         - name: PORT
           valueFrom:
