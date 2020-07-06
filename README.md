@@ -52,11 +52,11 @@ for the .env variable file:
 PORT=3000
 ```
 
-You can the call the endpoint at `http://localhost:3000/` to see all the hello world message.
+You can the call the endpoint at `http://localhost:3000/` to see the hello world message.
 
 ## Tagging Strategy and push scripts
 
-Concerning the tagging strategy I've decided to use a classic combo of <BRANCH_NAME>-<COMMIT_SHA_SHORT> which allow anybody to quickly check which version of an image is running in production or any other environments. What is more I added in front a <TIMESTAMP> so that we can properly order the tags on a particular registry. This helps us to easily find the latest built and pushed image.
+Concerning the tagging strategy I've decided to use a classic combo of `<BRANCH_NAME>-<COMMIT_SHA_SHORT>` which allow anybody to quickly check which version of an image is running in production or any other environments. What is more I added in front a `<TIMESTAMP>` so that we can properly order the tags on a particular registry. This helps us to easily find the latest built and pushed image.
 All args are optional and will default to local values if you don't set them.
 
 To use the build and push script:
@@ -109,10 +109,7 @@ You can verify your cluster is properly running by using:
 
 Once the GKE cluster is provisioned, we can add the kubernetes resources. Go to the `./kubernetes` directory and verify the `app-configmap.yaml` which holds the environment variable. I have decided willingly to not use Helm to manage the configuration of my app as it can be heavy for such a simple app. What is more, Helm version 2 was flawed and very hard to work with to manage production resources and flow. Since I think the easier the better, here it is a logical choice to go with raw yaml files. If necessary I would go more for tools such as ArgoCD to enforce gitOps. It could also be interesting to test and maybe use helm 3.
 
-```
-PORT: "3000"
-```
-fill this file and from there run:
+To deploy, run:
 
 `./deploy-app.sh`
 
@@ -129,7 +126,7 @@ This architecture is for me a complete proof-of-concept to show what I can do as
 
 ### Branching strategy
 
-I did not take into account any branching strategy for the CI/CD nor the deployment part, considering only master branch and a unique environment. In reality (in a software development team) this can be different as we would use other branches and other environments (such as staging, uat) to ensure users can test the software before releasing to production. Fortunately all the configurations is externalised in environment variables and travis could allow us to select different deployment strategy depending on the branch.
+I did not take into account any branching strategy for the CI/CD nor the deployment part, considering only master branch and a unique environment. In reality (in a software development team) this can be different as we would use other branches and other environments (such as staging, uat) to ensure users can test the software before releasing to production. Fortunately the configuration is externalised in environment variables and template files.
 
 ### Scalability
 

@@ -5,9 +5,6 @@ set -e
 
 echo "Script deploying the infrastructure"
 
-
-kubectl version
-
 echo "Applying config"
 kubectl apply -f ./app-configmap.yaml
 
