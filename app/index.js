@@ -11,9 +11,11 @@ app.use(
 )
 
 app.get('/', (request, response) => {
-  response.json({ info: 'Hello world' })
+  response.json({ info: 'Hello world test' })
 })
 
-app.listen(config.port, () => {
-  console.log(`App running on port ${config.port}.`)
+port = config.port || "3000"
+
+app.listen(port, () => {
+  console.log(`App running on port ${port}.`)
 })
