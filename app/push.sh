@@ -1,14 +1,8 @@
 #!/bin/bash
 
-
-# checks if branch has something pending
-function parse_git_dirty() {
-  git diff --quiet --ignore-submodules HEAD 2>/dev/null; [ $? -eq 1 ] && echo "*"
-}
-
 # gets the current git branch
 function parse_git_branch() {
-  git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1$(parse_git_dirty)/"
+  git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1/"
 }
 
 function parse_git_hash() {
@@ -17,13 +11,15 @@ function parse_git_hash() {
 
 branch=$(parse_git_branch)
 commit=$(parse_git_hash)
+timestamp=`date +%s`
+image="ximage"
 
-echo "Building with tag test/$branch-$commit"
-docker build -t localhost:5000/test:$branch-$commit .
+echo "Building with tag $image/$timestamp-$branch-$commit"
+docker build -t localhost:5000/$image:$timestamp-$branch-$commit .
 
 if [ $? == 0 ];
 then
-  docker push localhost:5000/test:$branch-$commit
+  docker push localhost:5000/$image:$timestamp-$branch-$commit
 fi
 
 
