@@ -16,10 +16,6 @@ For the language I have chosen `NodeJS` as it is straight forward to develop a s
 
 I have decided to dockerize the application, docker has many advantage such as portability and scalability. What is more I will use `kubernetes` for the cloud as it is the best orchestration tool for docker containers at the moment. 
 
-### CI/CD
-
-CI/CD is not part of the scope of this exercise.
-
 ### Cloud Platform
  
 Lately `GCP` is my go too platform for kubernetes. As I have been working with docker/kubernetes for the past 4 years, the provisioning of a GKE cluster is much faster on Google (5 min) than in AWS with EKS (at least 20 minutes). However AWS has a lot of tools and resources that Google does not have yet.
