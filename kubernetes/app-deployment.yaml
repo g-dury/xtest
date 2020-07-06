@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: xtest-app
+  labels:
+    app: 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: xtest
+  template:
+    metadata:
+      labels:
+        app: xtest
+    spec:
+      containers:
+      - name: xtest
+        image: gdury/xtest:master-8344e8
+        env:
+        - name: PORT
+          valueFrom:
+            configMapKeyRef:
+              name: app-env
+              key: PORT
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: xtest-svc
+spec:
+  selector:
+    app: xtest
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 3000
+  type: LoadBalancer
